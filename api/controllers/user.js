@@ -160,8 +160,26 @@ module.exports = {
 
 	social_login: function(req, res) {
 
-		// TODO
-	}
+		var provider;
+		
+		try {
+			provider = require('../social/' + req.param('provider'));
+		}
+
+		catch(e) {
+
+			return res.json({
+				result: 'error',
+				exception: {
+					message: 'No social login provided named "' + req.param('provider') = '"'
+				}
+			})
+		}
+
+		provider.login(req.param('token'), function(err, socialInfo) {
+			// TODO: check by email than login
+		});
+	},
 
 	social_add: function(req, res) {
 
