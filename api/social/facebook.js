@@ -1,5 +1,7 @@
-var Provider = require('./provider');
 var graph = require('fbgraph');
+var request = require("request");
+
+var Provider = require('./provider');
 
 var facebookProvider = new Provider({
 	
