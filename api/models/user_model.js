@@ -37,10 +37,10 @@ var UserSchema = new Schema({
 
 		validate: check({
 
-			message: "Password should be between 6 and 30 characters",
+			message: "Password should be at least 6 characters long",
 			passIfEmpty: true
 
-		}, 'len', 6, 30)
+		}, 'len', 6)
 	},
 
 	social: [{
@@ -63,14 +63,21 @@ var UserSchema = new Schema({
 		os: {
 
 			name: {
+
+				required: true,
+
 				type: String,
-				enum: ['iOS', 'Android', 'Windows Phone']
+				enum: ['Android', 'iOS', 'WindowsPhone']
 			},
 
-			version: String
-		},
+			version: String,
 
-		number: String
+			first_access: {
+
+				type: Date,
+				default: Date.now
+			}
+		}
 	}],
 
 	// // Store user location
@@ -121,7 +128,7 @@ UserSchema.statics.auth = function(candidate, fn) {
 	});
 }
 
-UserSchema.statics.authenticate = function (user, cb) {
+UserSchema.statics.auth = function (user, cb) {
 
 	this.findOne({ 
 
@@ -163,6 +170,16 @@ UserSchema.methods.toJSON = function() {
 
 	delete obj.password;
 	delete obj.__v;
+
+	for(var i = 0; i < obj.devices.length; i++) {
+		obj.devices[i].id = obj.devices[i]._id
+		delete obj.devices[i]._id;
+	}
+
+	for(var i = 0; i < obj.social.length; i++) {
+		delete obj.social[i].id;
+		delete obj.social[i]._id;
+	}
 
 	return obj;
 }

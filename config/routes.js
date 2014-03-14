@@ -4,13 +4,7 @@ module.exports = {
 
 	"get": {
 
-		"/": {
-
-			controller:"hello",
-			method: "world",
-
-			filters: []
-		},
+		"/": "/hello",
 
 		"/hello": {
 
@@ -20,7 +14,9 @@ module.exports = {
 			filters: []
 		},
 
-		"/user": {
+		"/user": "/user/me",
+
+		"/user/me": {
 
 			controller:"user",
 			method: "me",
@@ -53,6 +49,14 @@ module.exports = {
 			method: "create",
 
 			filters: []
+		},
+
+		"/user/device": {
+
+			controller:"user",
+			method: "add_device",
+
+			filters: ["authenticated"]
 		},
 	}
 }

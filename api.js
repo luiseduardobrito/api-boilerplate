@@ -76,8 +76,18 @@ var AppRouter = function(map) {
 
 		for(var k in map.get || {}) {
 
-			var ctrl = map.get[k].controller;
-			var action = map.get[k].method || "index";
+			if(typeof map.get[k] === typeof "str") {
+
+				var redirect = map.get[k];
+				var ctrl = map.get[redirect].controller;
+				var action = map.get[redirect].method || "index";
+			}
+
+			else {
+
+				var ctrl = map.get[k].controller;
+				var action = map.get[k].method || "index";
+			}
 
 			ctrl = require("./api/controllers/" + ctrl);
 
