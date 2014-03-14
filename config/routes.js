@@ -18,6 +18,14 @@ module.exports = {
 			method: "world",
 
 			filters: []
+		},
+
+		"/user": {
+
+			controller:"user",
+			method: "me",
+
+			filters: []
 		}
 	}
 }

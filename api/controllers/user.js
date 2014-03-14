@@ -1,13 +1,13 @@
-var mongoose = require('./adapters/mongoose');
+var mongoose = require('../adapters/mongoose');
 
 var User = mongoose.model('user');
 
 module.exports = {
 
-	world: function(req, res) {
+	me: function(req, res) {
 
 		res.json({
-			hello: 'world'
+			user: 'me'
 		});
 	}
 }

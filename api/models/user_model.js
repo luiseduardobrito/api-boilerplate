@@ -7,7 +7,7 @@ var UserSchema = new Schema({
 
 	name: {
 
-		required: true
+		required: true,
 		type: String
 	},
 
@@ -18,7 +18,7 @@ var UserSchema = new Schema({
 		type: String,
 		validate: [
 			check('isEmail'),
-			check('isLength', 3)
+			check('len', 3)
 		]
 	},
 
@@ -28,35 +28,64 @@ var UserSchema = new Schema({
 		required: false,
 
 		type: String,
-		validate: check('isLength', 6)
+		validate: check('len', 6)
 	},
 
-	social: {
+	social: [{
 
 		access_token: {
 			type: String,
 		},
 
 		provider: {
-
 			type: String,
-			enum: ['email', 'google' 'facebook'],
+			enum: ['email', 'google', 'facebook'],
 			default: 'email'
+		}
+	}],
+
+	devices: [{
+
+		imei: String,
+
+		os: {
+
+			name: {
+				type: String,
+				enum: ['iOS', 'Android', 'Windows Phone']
+			},
+
+			version: String
 		},
-	},
 
-	uri: {
+		number: String
+	}],
 
-		type: String
-	},
+	// // Store user location
+	// localization: [{
+	// 	lat: String,
+	// 	lng: String
+	// }],
 
-	image: {
-
-		type: String
-	},
+	uri: String,
+	image: String
 
 }, {
 	toObject: {
 		virtuals: true
 	}
-})
+});
+
+UserSchema
+	.virtual('isMobile')
+	.get(function () {
+		return (!!this.devices.length)
+	});
+
+UserSchema
+	.virtual('isWeb')
+	.get(function () {
+		return (!this.devices.length)
+	});
+
+module.exports = UserSchema;

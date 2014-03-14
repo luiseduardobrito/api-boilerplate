@@ -26,7 +26,7 @@ var MongooseAdapter = function() {
 
 	_public.model = function(name, input) {
 
-		var schema = require("../models/" + name + "_model");
+		var schema = require("./api/models/" + name + "_model");
 		return mongoose.model(name, schema);
 	}
 
