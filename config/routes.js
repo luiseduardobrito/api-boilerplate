@@ -69,6 +69,14 @@ module.exports = {
 			filters: []
 		},
 
+		"/user/social": {
+
+			controller:"user",
+			method: "social",
+
+			filters: ["authenticated"]
+		},
+
 		"/admin/create": {
 
 			controller:"admin",

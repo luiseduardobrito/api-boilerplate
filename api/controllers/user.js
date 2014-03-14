@@ -156,5 +156,45 @@ module.exports = {
 				})
 			}
 		})
+	},
+
+	social: function(req, res) {
+
+		User.findOne(req.cookies.user_id, function(err, me) {
+
+			if(err) {
+
+				return res.json({
+					result: 'error',
+					exception: err
+				});
+			}
+
+			else {
+
+				me.social.push({
+					provider: req.param('provider'),
+					access_token: req.param('access_token')
+				})
+
+				me.save(function(err) {
+
+					if(err) {
+
+						return res.json({
+							result: 'error',
+							exception: err
+						});
+					}
+
+					else {
+						res.json({
+							result: 'success',
+							user: me
+						})
+					}
+				})
+			}
+		})
 	}
 }
