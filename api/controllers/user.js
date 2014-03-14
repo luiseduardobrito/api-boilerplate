@@ -110,7 +110,7 @@ module.exports = {
 	logout: function(req, res) {
 
 		res.cookie('logged_in', 'false');
-		res.cookie('user_id', null);
+		res.cookie('user_id', "null");
 
 		res.json({
 			result: 'success',

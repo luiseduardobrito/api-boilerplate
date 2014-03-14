@@ -3,6 +3,8 @@ var mongoose = require('../adapters/mongoose');
 var Admin = mongoose.model('admin');
 
 module.exports = function(req, res, next) {
+
+	console.log(req.cookies.user_id)
 	
 	Admin.find({
 

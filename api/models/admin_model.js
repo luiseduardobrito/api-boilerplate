@@ -49,4 +49,4 @@ var AdminSchema = new Schema({
 	}]
 });
 
-module.xports = AdminSchema;
+module.exports = AdminSchema;
