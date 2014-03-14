@@ -72,7 +72,7 @@ module.exports = {
 		"/user/social": {
 
 			controller:"user",
-			method: "social",
+			method: "social_add",
 
 			filters: ["authenticated"]
 		},

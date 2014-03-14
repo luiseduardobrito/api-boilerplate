@@ -158,7 +158,12 @@ module.exports = {
 		})
 	},
 
-	social: function(req, res) {
+	social_login: function(req, res) {
+
+		// TODO
+	}
+
+	social_add: function(req, res) {
 
 		User.findOne(req.cookies.user_id, function(err, me) {
 
