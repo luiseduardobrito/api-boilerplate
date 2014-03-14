@@ -6,8 +6,47 @@ var Exception = require("../adapters/exceptions");
 var check = require('mongoose-validator').validate;
 var bcrypt = require('bcrypt');
 
-var UserSchema = require('./user_model');
 
-var AdminSchema = new UserSchema.extend({
+var AdminSchema = new Schema({
 
+	access: {
+
+		priority: Number,
+
+		role: {
+			type: String,
+			enum: ['operator', 'root']
+		}
+	}
+
+	user_id: {
+
+		type: Schame.ObjectId,
+		ref: 'user',
+
+		index: {
+			unique: true
+		}
+	}
+
+	created_at: {
+		type: Date,
+		default: Date.now		
+	},
+
+	last_access: {
+		type: Date,
+		default: Date.now		
+	},
+
+	operation_log: [{
+		code: Number,
+		description: String,
+		date: {
+			type: Date,
+			default: Date.now
+		}
+	}]
 });
+
+module.xports = AdminSchema;

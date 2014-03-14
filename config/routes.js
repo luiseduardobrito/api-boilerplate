@@ -39,6 +39,24 @@ module.exports = {
 
 			filters: ["authenticated"]
 		},
+
+		"/admin": "/admin/info",
+
+		"/admin/info": {
+
+			controller: "admin",
+			method: "info".
+
+			filters: ["authenticated"] //,'operator']
+		},
+
+		"/admin/sample_hidden_command": {
+
+			controller: "hello",
+			method: "world".
+
+			filters: ["authenticated", "admin"]
+		},
 	},
 
 	post: {
@@ -49,6 +67,14 @@ module.exports = {
 			method: "create",
 
 			filters: []
+		},
+
+		"/admin/create": {
+
+			controller:"admin",
+			method: "create",
+
+			filters: ["authenticated"] //,'root']
 		},
 
 		"/user/device": {
