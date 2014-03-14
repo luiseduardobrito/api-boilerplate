@@ -1,0 +1,19 @@
+{
+	"state"	: "development",
+
+	"development": {
+
+		"port": 3000,
+
+		"db": {
+
+			"protocol": "mongodb://",
+
+			"user": "root",
+			"password": "",
+
+			"db": "boilerplate",
+			"host": "localhost"
+		}
+	}
+}

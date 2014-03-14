@@ -1,0 +1,25 @@
+{
+  "name": "api-boilerplate",
+  "version": "0.0.1",
+  "description": "express + mongoose api boilerplate",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/luiseduardobrito/api-boilerplate.git"
+  },
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/luiseduardobrito/api-boilerplate/issues"
+  },
+  "homepage": "https://github.com/luiseduardobrito/api-boilerplate",
+  "dependencies": {
+    "express": "~3.4.8",
+    "jade": "*",
+    "async": "~0.2.10",
+    "colors": "~0.6.2"
+  }
+}
