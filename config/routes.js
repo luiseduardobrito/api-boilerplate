@@ -9,7 +9,7 @@ module.exports = {
 			controller:"hello",
 			method: "world",
 
-			filters: [""]
+			filters: []
 		},
 
 		"/hello": {
@@ -17,7 +17,7 @@ module.exports = {
 			controller:"hello",
 			method: "world",
 
-			filters: [""]
+			filters: []
 		}
 	}
 }

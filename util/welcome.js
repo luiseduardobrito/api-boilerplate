@@ -1,12 +1,12 @@
-var pkg = require("../package");
+var pkg = require('../package');
 
 var fs = require('fs');
 var util = require('util');
-var path = require('path')
 var colors = require('colors');
+var path = require('path');
 
 var path = path.join(__dirname, '../config/welcome_message.txt');
-var text = fs.readFileSync(path, {encoding: "utf8"}).toString();
+var text = fs.readFileSync(path, {encoding: 'utf8'}).toString();
 
 colors.setTheme({
 	logo: 'cyan',

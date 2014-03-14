@@ -9,9 +9,10 @@ var path = require('path');
 var api = require('./api');
 
 var settings = require("./config/settings");
-var welcome = require("./welcome");
+var mongoose = require('./mongoose');
 
 // Show welcome message
+var welcome = require("./util/welcome");
 welcome.init(console);
 
 // Log application bootstrap
