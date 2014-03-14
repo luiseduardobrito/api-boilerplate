@@ -17,17 +17,17 @@ var AdminSchema = new Schema({
 			type: String,
 			enum: ['operator', 'root']
 		}
-	}
+	},
 
-	user_id: {
+	user: {
 
-		type: Schame.ObjectId,
+		type: Schema.ObjectId,
 		ref: 'user',
 
 		index: {
 			unique: true
 		}
-	}
+	},
 
 	created_at: {
 		type: Date,

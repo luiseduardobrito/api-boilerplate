@@ -1,4 +1,4 @@
-var mongoose = require('./adapters/mongoose');
+var mongoose = require('../adapters/mongoose');
 
 var Admin = mongoose.model('admin');
 
@@ -24,7 +24,7 @@ module.exports = function(req, res, next) {
 
 				result: 'error',
 				exception: {
-					code: 1002
+					code: 1002,
 					message: 'Current user account has none admin privileges'
 				}
 			})

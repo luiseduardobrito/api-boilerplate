@@ -45,15 +45,15 @@ module.exports = {
 		"/admin/info": {
 
 			controller: "admin",
-			method: "info".
+			method: "info",
 
-			filters: ["authenticated"] //,'operator']
+			filters: ["authenticated", "admin"]
 		},
 
 		"/admin/sample_hidden_command": {
 
 			controller: "hello",
-			method: "world".
+			method: "world",
 
 			filters: ["authenticated", "admin"]
 		},
