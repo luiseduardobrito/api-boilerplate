@@ -1,13 +1,15 @@
+var settings = require("../../config/settings")
 var graph = require('fbgraph');
 var request = require("request");
 
 var Provider = require('./provider');
 
-var facebookProvider = new Provider({
+var facebookProvider = new Provider('facebook', {
 	
 	login: function(token, fn) {
 
 		var _this = this;
+		fn = fn || function(){};
 
 		graph.setAccessToken(token);
 
@@ -27,17 +29,13 @@ var facebookProvider = new Provider({
 
 				fn(null, {
 
-					email: data.email
-
-				}, {
-
 					name: data.name,
 					email: data.email,
 					image: picture,
 
 					social: {
 						provider: "facebook",
-						access_token: token
+						token: token
 					}
 				});
 			})

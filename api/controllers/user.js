@@ -1,4 +1,7 @@
+var input = require("../adapters/input");
+var social = require("../adapters/social");
 var mongoose = require('../adapters/mongoose');
+
 var User = mongoose.model('user');
 
 module.exports = {
@@ -118,66 +121,70 @@ module.exports = {
 		})
 	},
 
-	add_device: function(req, res) {
-
-		User.findOne(req.cookies.user_id, function(err, me) {
-
-			if(err) {
-
-				return res.json({
-					result: 'error',
-					exception: err
-				});
-			}
-
-			else {
-
-				me.devices.push({
-					imei: req.param('imei'),
-					os: req.param('os')
-				})
-
-				me.save(function(err) {
-
-					if(err) {
-
-						return res.json({
-							result: 'error',
-							exception: err
-						});
-					}
-
-					else {
-						res.json({
-							result: 'success',
-							user: me
-						})
-					}
-				})
-			}
-		})
-	},
-
 	social_login: function(req, res) {
 
+		var params = ['provider', 'social'];
+
+		if(!req.param('provider') || !req.param('token')) {
+
+			res.json({
+
+				result: 'error',
+				exception: {
+					message: 'The social provider was not supplied',
+					error: {
+						missing_fields: ['provider', 'token']
+					}
+				}
+			});
+		}
+
+		// Social provider interface
 		var provider;
-		
+
 		try {
-			provider = require('../social/' + req.param('provider'));
+
+			// Try to call the social provider
+			provider = social.provider(req.param('provider'));
 		}
 
 		catch(e) {
 
 			return res.json({
+
 				result: 'error',
 				exception: {
-					message: 'No social login provided named "' + req.param('provider') = '"'
+					message: 'The social provider "' + req.param('provider') + '" does not exist',
+					error: {
+						name: e.name,
+						message: e.message,
+						line: e.stack
+					}
 				}
 			})
 		}
 
 		provider.login(req.param('token'), function(err, socialInfo) {
-			// TODO: check by email than login
+
+			User.socialAuth(socialInfo, function(err, me) {
+
+				if(err) {
+
+					return res.json({
+						result: 'error',
+						exception: err
+					});
+				}
+
+				else {
+
+					return res.json({
+						result: 'success',
+						user: me
+					})
+				}
+
+			})
 		});
 	},
 

@@ -72,7 +72,7 @@ module.exports = {
 		"/user/social": {
 
 			controller:"user",
-			method: "social_add",
+			method: "social_login",
 
 			filters: ["authenticated"]
 		},
@@ -83,14 +83,6 @@ module.exports = {
 			method: "create",
 
 			filters: ["authenticated"] //,'root']
-		},
-
-		"/user/device": {
-
-			controller:"user",
-			method: "add_device",
-
-			filters: ["authenticated"]
-		},
+		}
 	}
 }

@@ -92,7 +92,7 @@ var AppRouter = function(map) {
 			ctrl = require("./api/controllers/" + ctrl);
 
 			if(!ctrl[action]) {
-				throw new Error("Controller not defined", [ctrl, action]);
+				throw new Error("Controller not defined: " + [map.post[k].controller, action].join('.'));
 			}
 
 			var uri = (map.prefix || "") + k;
@@ -109,7 +109,7 @@ var AppRouter = function(map) {
 			ctrl = require("./api/controllers/" + ctrl);
 
 			if(!ctrl[action]) {
-				throw new Error("Controller not defined", [ctrl, action]);
+				throw new Error("Controller not defined: " + [map.post[k].controller, action].join('.'));
 			}
 
 			var uri = (map.prefix || "") + k;
@@ -124,7 +124,7 @@ var AppRouter = function(map) {
 			ctrl = require("./api/controllers/" + ctrl);
 
 			if(!ctrl[action]) {
-				throw new Error("Controller not defined", [ctrl, action]);
+				throw new Error("Controller not defined: " + [map.post[k].controller, action].join('.'));
 			}
 
 			var uri = (map.prefix || "") + k;

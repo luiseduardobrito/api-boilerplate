@@ -17,10 +17,15 @@ var SocialProvider = function(name, obj) {
 
 	_public.login = function(token, fn) {
 
-		fn = fn || function();
+		fn = fn || function(){};
 
-		_this.provider.call(_this.provider)
+		if(!_this.provider.login)
+			throw new Error("Provider 'login' method not found");
+
+		_this.provider.login.apply(_this.provider, [token, fn]);
 	}
+
+	return _this.init();
 };
 
-exports = SocialProvider;
+module.exports = SocialProvider;

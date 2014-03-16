@@ -45,7 +45,7 @@ var UserSchema = new Schema({
 
 	social: [{
 
-		access_token: {
+		token: {
 			type: String,
 		},
 
@@ -55,37 +55,7 @@ var UserSchema = new Schema({
 			default: 'email'
 		}
 	}],
-
-	devices: [{
-
-		imei: String,
-
-		os: {
-
-			name: {
-
-				required: true,
-
-				type: String,
-				enum: ['Android', 'iOS', 'WindowsPhone']
-			},
-
-			version: String,
-
-			first_access: {
-
-				type: Date,
-				default: Date.now
-			}
-		}
-	}],
-
-	// // Store user location
-	// localization: [{
-	// 	lat: String,
-	// 	lng: String
-	// }],
-
+	
 	uri: String,
 	image: String
 
@@ -161,6 +131,58 @@ UserSchema.statics.auth = function (user, cb) {
 	});
 };
 
+UserSchema.statics.socialAuth = function(info, fn) {
+
+	var _User = this;
+
+	_User.findOne({
+
+		email: info.email 
+
+	}, function(err, user) {
+
+		if(err)
+			return fn(err, null);
+
+		else if(!user) {
+
+			info.social = [info.social];
+			var user = new _User(info);
+		}
+
+		else {
+
+			if(!user.social || !user.social.length) {
+				user.social = [info.social];
+			}
+
+			else {
+
+				var found = false;
+
+				for(var i = 0; i < user.social.length; i++) {
+					if(user.social[i].provider === info.social.provider) {
+						user.social.token = info.social.token
+						found = true;
+					}
+				}
+
+				if(!found)
+					user.social.push(info.social);
+			}
+		}
+
+		user.save(function(err) {
+
+			if(err)
+				fn(err);
+			else
+				fn(null, user);
+		});
+	})
+
+};
+
 UserSchema.methods.toJSON = function() {
 
 	var obj = this.toObject();
@@ -170,11 +192,6 @@ UserSchema.methods.toJSON = function() {
 
 	delete obj.password;
 	delete obj.__v;
-
-	for(var i = 0; i < obj.devices.length; i++) {
-		obj.devices[i].id = obj.devices[i]._id
-		delete obj.devices[i]._id;
-	}
 
 	for(var i = 0; i < obj.social.length; i++) {
 		delete obj.social[i].id;
